@@ -32,15 +32,22 @@ const Navbar = () => {
     }, [location]);
 
     const navItems = [
-        { path: '/', label: 'Home' },
-        { path: '/about', label: 'About' },
-        { path: '/projects', label: 'Projects' },
-        { path: '/skills', label: 'Skills' },
-        { path: '/contact', label: 'Contact' }
+        { path: '#home', label: 'Home' },
+        { path: '#education', label: 'Education' },
+        { path: '#work-experience', label: 'Work Experience' },
+        { path: '#resume', label: 'Resume' }
     ];
 
+    const scrollToSection = (sectionId) => {
+        const element = document.querySelector(sectionId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+        closeMenu();
+    };
+
     return (
-        <nav className={`navbar navbar-expand-lg fixed-top navbar-modern ${
+        <nav className={`navbar navbar-expand-lg navbar-modern mb-5 ${
             scrolled ? 'scrolled navbar-dark' : 'navbar-light'
         }`}>
             <div className="container">
@@ -50,7 +57,7 @@ const Navbar = () => {
                     to="/" 
                     onClick={closeMenu}
                 >
-                    Portfolio
+                    Your Name
                 </Link>
 
                 {/* Mobile menu button */}
@@ -69,15 +76,12 @@ const Navbar = () => {
                     <ul className="navbar-nav ms-auto">
                         {navItems.map((item) => (
                             <li className="nav-item" key={item.path}>
-                                <Link 
-                                    className={`nav-link nav-link-modern ${
-                                        location.pathname === item.path ? 'active' : ''
-                                    }`}
-                                    to={item.path} 
-                                    onClick={closeMenu}
+                                <button 
+                                    className="nav-link nav-link-modern"
+                                    onClick={() => scrollToSection(item.path)}
                                 >
                                     {item.label}
-                                </Link>
+                                </button>
                             </li>
                         ))}
                     </ul>
